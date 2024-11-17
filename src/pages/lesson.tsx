@@ -3,19 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import {
-  AppleSvg,
+  AvocadoSvg,
   BigCloseSvg,
-  BoySvg,
   CloseSvg,
+  CucumberSvg,
   DoneSvg,
   LessonFastForwardEndFailSvg,
   LessonFastForwardEndPassSvg,
   LessonFastForwardStartSvg,
   LessonTopBarEmptyHeart,
   LessonTopBarHeart,
-  WomanSvg,
+  GrapesSvg,
 } from "~/components/Svgs";
-import womanPng from "../../public/woman.png";
 import { useBoundStore } from "~/hooks/useBoundStore";
 import { useRouter } from "next/router";
 
@@ -23,11 +22,11 @@ const lessonProblem1 = {
   type: "SELECT_1_OF_3",
   question: `Palavra com a letra "A"?`,
   answers: [
-    { icon: <AppleSvg />, name: "pepino" },
-    { icon: <BoySvg />, name: "abacate" },
-    { icon: <WomanSvg />, name: "uva" },
+    { icon: <CucumberSvg />, name: "pepino" },
+    { icon: <AvocadoSvg />, name: "abacate" },
+    { icon: <GrapesSvg />, name: "uva" },
   ],
-  correctAnswer: 0,
+  correctAnswer: 1,
 } as const;
 
 const lessonProblem2 = {
@@ -312,10 +311,10 @@ const QuitMessage = ({
       >
         <div className="flex grow flex-col gap-4">
           <h2 className="text-lg font-bold sm:text-2xl">
-            Are you sure you want to quit?
+            Tem certeza que deseja sair?
           </h2>
           <p className="text-gray-500 sm:text-lg">
-            All progress for this lesson will be lost.
+            Seu progresso nessa lição será perdido.
           </p>
         </div>
         <div className="flex grow flex-col items-center justify-center gap-4 sm:flex-row-reverse">
@@ -323,13 +322,13 @@ const QuitMessage = ({
             className="flex w-full items-center justify-center rounded-2xl border-b-4 border-blue-500 bg-blue-400 py-3 font-bold uppercase text-white transition hover:brightness-105 sm:w-48"
             href="/learn"
           >
-            Quit
+            Sair
           </Link>
           <button
             className="w-full rounded-2xl py-3 font-bold uppercase text-blue-400 transition hover:brightness-90 sm:w-48 sm:border-2 sm:border-b-4 sm:border-gray-300 sm:text-gray-400 sm:hover:bg-gray-100"
             onClick={() => setQuitMessageShown(false)}
           >
-            Stay
+            Continuar
           </button>
         </div>
       </article>
@@ -344,7 +343,6 @@ const CheckAnswer = ({
   correctAnswer,
   onCheckAnswer,
   onFinish,
-  onSkip,
 }: {
   isAnswerSelected: boolean;
   isAnswerCorrect: boolean;
@@ -358,25 +356,25 @@ const CheckAnswer = ({
     <>
       <section className="border-gray-200 sm:border-t-2 sm:p-10">
         <div className="mx-auto flex max-w-5xl sm:justify-between">
-          <button
+          {/* <button
             className="hidden rounded-2xl border-2 border-b-4 border-gray-200 bg-white p-3 font-bold uppercase text-gray-400 transition hover:border-gray-300 hover:bg-gray-200 sm:block sm:min-w-[150px] sm:max-w-fit"
             onClick={onSkip}
           >
             Skip
-          </button>
+          </button> */}
           {!isAnswerSelected ? (
             <button
               className="grow rounded-2xl bg-gray-200 p-3 font-bold uppercase text-gray-400 sm:min-w-[150px] sm:max-w-fit sm:grow-0"
               disabled
             >
-              Check
+              Confirmar
             </button>
           ) : (
             <button
               onClick={onCheckAnswer}
               className="grow rounded-2xl border-b-4 border-blue-600 bg-blue-500 p-3 font-bold uppercase text-white sm:min-w-[150px] sm:max-w-fit sm:grow-0"
             >
-              Check
+              Confirmar
             </button>
           )}
         </div>
@@ -398,7 +396,7 @@ const CheckAnswer = ({
                 <div className="hidden rounded-full bg-white p-5 text-blue-500 sm:block">
                   <DoneSvg />
                 </div>
-                <div className="text-2xl">Good job!</div>
+                <div className="text-2xl">Ótimo!</div>
               </div>
             ) : (
               <div className="mb-2 flex flex-col gap-5 sm:flex-row sm:items-center">
@@ -406,7 +404,7 @@ const CheckAnswer = ({
                   <BigCloseSvg />
                 </div>
                 <div className="flex flex-col gap-2">
-                  <div className="text-2xl">Correct solution:</div>{" "}
+                  <div className="text-2xl">Resposta correta:</div>{" "}
                   <div className="text-sm font-normal">{correctAnswer}</div>
                 </div>
               </div>
@@ -420,7 +418,7 @@ const CheckAnswer = ({
                 : "w-full rounded-2xl border-b-4 border-red-600 bg-red-500 p-3 font-bold uppercase text-white transition hover:brightness-105 sm:min-w-[150px] sm:max-w-fit"
             }
           >
-            Continue
+            Continuar
           </button>
         </div>
       </div>
@@ -563,12 +561,17 @@ const ProblemWriteInEnglish = ({
         </div>
         <section className="flex max-w-2xl grow flex-col gap-5 self-center sm:items-center sm:justify-center sm:gap-24">
           <h1 className="mb-2 text-2xl font-bold sm:text-3xl">
-            Write this in English
+            Selecione a resposta correta
           </h1>
 
           <div className="w-full">
             <div className="flex items-center gap-2 px-2">
-              <Image src={womanPng} alt="" width={92} height={115} />
+              <Image
+                src="data:image/png;base64,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"
+                alt="old-woman-skin-type-1-2"
+                width={92}
+                height={115}
+              />
               <div className="relative ml-2 w-fit rounded-2xl border-2 border-gray-200 p-4">
                 {question}
                 <div
@@ -675,7 +678,7 @@ const LessonComplete = ({
     <div className="flex min-h-screen flex-col gap-5 px-4 py-5 sm:px-0 sm:py-0">
       <div className="flex grow flex-col items-center justify-center gap-8 font-bold">
         <h1 className="text-center text-3xl text-yellow-400">
-          Lesson Complete!
+          Lição completa!
         </h1>
         <div className="flex flex-wrap justify-center gap-5">
           <div className="min-w-[110px] rounded-xl border-2 border-yellow-400 bg-yellow-400">
@@ -685,13 +688,13 @@ const LessonComplete = ({
             </div>
           </div>
           <div className="min-w-[110px] rounded-xl border-2 border-blue-400 bg-blue-400">
-            <h2 className="py-1 text-center text-white">Committed</h2>
+            <h2 className="py-1 text-center text-white">Tempo</h2>
             <div className="flex justify-center rounded-xl bg-white py-4 text-blue-400">
               {formatTime(endTime.current - startTime.current)}
             </div>
           </div>
           <div className="min-w-[110px] rounded-xl border-2 border-blue-400 bg-blue-400">
-            <h2 className="py-1 text-center text-white">Amazing</h2>
+            <h2 className="py-1 text-center text-white">Excelente</h2>
             <div className="flex justify-center rounded-xl bg-white py-4 text-blue-400">
               {Math.round(
                 (correctAnswerCount /
@@ -705,12 +708,12 @@ const LessonComplete = ({
       </div>
       <section className="border-gray-200 sm:border-t-2 sm:p-10">
         <div className="mx-auto flex max-w-5xl sm:justify-between">
-          <button
+          {/* <button
             className="hidden rounded-2xl border-2 border-b-4 border-gray-200 bg-white p-3 font-bold uppercase text-gray-400 transition hover:border-gray-300 hover:bg-gray-200 sm:block sm:min-w-[150px] sm:max-w-fit"
             onClick={() => setReviewLessonShown(true)}
           >
             Review lesson
-          </button>
+          </button> */}
           <Link
             className={
               "flex w-full items-center justify-center rounded-2xl border-b-4 border-blue-600 bg-blue-500 p-3 font-bold uppercase text-white transition hover:brightness-105 sm:min-w-[150px] sm:max-w-fit"
@@ -725,7 +728,7 @@ const LessonComplete = ({
               }
             }}
           >
-            Continue
+            Continuar
           </Link>
         </div>
       </section>
@@ -904,17 +907,17 @@ const LessonFastForwardEndFail = ({
       </div>
       <section className="border-gray-200 sm:border-t-2 sm:p-10">
         <div className="mx-auto flex max-w-5xl sm:justify-between">
-          <button
+          {/* <button
             className="hidden rounded-2xl border-2 border-b-4 border-gray-200 bg-white p-3 font-bold uppercase text-gray-400 transition hover:border-gray-300 hover:bg-gray-200 sm:block sm:min-w-[150px] sm:max-w-fit"
             onClick={() => setReviewLessonShown(true)}
           >
             Review lesson
-          </button>
+          </button> */}
           <Link
             className="flex w-full items-center justify-center rounded-2xl border-b-4 border-blue-600 bg-blue-500 p-3 font-bold uppercase text-white transition hover:brightness-105 sm:min-w-[150px] sm:max-w-fit"
             href="/learn"
           >
-            Continue
+            Continuar
           </Link>
         </div>
       </section>
@@ -950,18 +953,18 @@ const LessonFastForwardEndPass = ({
       </div>
       <section className="border-gray-200 sm:border-t-2 sm:p-10">
         <div className="mx-auto flex max-w-5xl sm:justify-between">
-          <button
+          {/* <button
             className="hidden rounded-2xl border-2 border-b-4 border-gray-200 bg-white p-3 font-bold uppercase text-gray-400 transition hover:border-gray-300 hover:bg-gray-200 sm:block sm:min-w-[150px] sm:max-w-fit"
             onClick={() => setReviewLessonShown(true)}
           >
             Review lesson
-          </button>
+          </button> */}
           <Link
             className="flex w-full items-center justify-center rounded-2xl border-b-4 border-blue-600 bg-blue-500 p-3 font-bold uppercase text-white transition hover:brightness-105 sm:min-w-[150px] sm:max-w-fit"
             href="/learn"
             onClick={() => jumpToUnit(unitNumber)}
           >
-            Continue
+            Continuar
           </Link>
         </div>
       </section>
